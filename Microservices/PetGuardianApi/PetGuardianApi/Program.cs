@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using PetGuardianApi.Data.Configuration;
 using PetGuardianApi.Database.Repositories;
 using PetGuardianApi.Domain.Interfaces.Repositories;
+using PetGuardianApi.Domain.Interfaces.Services;
+using PetGuardianApi.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,8 @@ opt =>
 );
 
 builder.Services.AddScoped<IPetGuardianRepository, PetGuardianRepository>();
+
+builder.Services.AddScoped<IPetGuardianService, PetGuardianService>();
 
 var app = builder.Build();
 

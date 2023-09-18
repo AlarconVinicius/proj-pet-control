@@ -27,9 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Interfaces\Services\" />
     <Folder Include="Domain\Dtos\" />
-    <Folder Include="Domain\Services\" />
   </ItemGroup>
 
 </Project>
