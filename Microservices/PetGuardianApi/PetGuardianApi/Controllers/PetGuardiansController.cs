@@ -16,8 +16,17 @@ namespace PetGuardianApi.Controllers
 			_petGuardianService = petGuardianService;
 		}
 
+		/// <summary>
+		/// Get a list of all pet guardians.
+		/// </summary>
+		/// <response code="200">Returns a collection of PetGuardianResponse objects.</response>
+		/// <response code="404">If no pet guardians are found.</response>
+		/// <response code="500">If an unexpected error occurs.</response>
+		[ProducesResponseType(typeof(IEnumerable<PetGuardianResponse>), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
 		[HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IEnumerable<PetGuardianResponse>>> Get()
         {
 			try
 			{
@@ -35,8 +44,18 @@ namespace PetGuardianApi.Controllers
 
 		}
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+		/// <summary>
+		/// Get a pet guardian by their ID.
+		/// </summary>
+		/// <param name="id">The ID of the pet guardian.</param>
+		/// <response code="200">Returns a PetGuardianResponse object if found.</response>
+		/// <response code="404">If no pet guardian is found with the specified ID.</response>
+		/// <response code="500">If an unexpected error occurs.</response>
+		[ProducesResponseType(typeof(PetGuardianResponse), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[HttpGet("{id}")]
+        public async Task<ActionResult<PetGuardianResponse>> Get(Guid id)
         {
 			try
 			{
@@ -53,7 +72,18 @@ namespace PetGuardianApi.Controllers
 			}
         }
 
-        [HttpPut("{id}")]
+		/// <summary>
+		/// Update a pet guardian by their ID.
+		/// </summary>
+		/// <param name="id">The ID of the pet guardian.</param>
+		/// <param name="petGuardian">The updated pet guardian data.</param>
+		/// <response code="204">No Content status code if the update is successful.</response>
+		/// <response code="404">If no pet guardian is found with the specified ID.</response>
+		/// <response code="500">If an unexpected error occurs.</response>
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, PetGuardianRequest petGuardian)
         {
 			try
@@ -61,7 +91,7 @@ namespace PetGuardianApi.Controllers
 				await _petGuardianService.UpdatePetGuardian(id, petGuardian);
 				return NoContent();
 			}
-			catch (NotFoundException ex)
+			catch (NotFoundException)
 			{
 				return NotFound();
 			}
@@ -71,8 +101,16 @@ namespace PetGuardianApi.Controllers
 			}
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(PetGuardianRequest petGuardian)
+		/// <summary>
+		/// Add a new pet guardian.
+		/// </summary>
+		/// <param name="petGuardian">The data of the new pet guardian.</param>
+		/// <response code="201">Created status code if the creation is successful.</response>
+		/// <response code="500">If an unexpected error occurs.</response>
+		[ProducesResponseType(typeof(PetGuardianResponse), StatusCodes.Status201Created)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[HttpPost]
+        public async Task<ActionResult<PetGuardianResponse>> Post(PetGuardianRequest petGuardian)
         {
 			try
 			{
@@ -86,7 +124,17 @@ namespace PetGuardianApi.Controllers
 			}
 		}
 
-        [HttpDelete("{id}")]
+		/// <summary>
+		/// Delete a pet guardian by their ID.
+		/// </summary>
+		/// <param name="id">The ID of the pet guardian to be deleted.</param>
+		/// <response code="204">No Content status code if the deletion is successful.</response>
+		/// <response code="404">If no pet guardian is found with the specified ID.</response>
+		/// <response code="500">If an unexpected error occurs.</response>
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+		[HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
 			try
@@ -94,7 +142,7 @@ namespace PetGuardianApi.Controllers
 				await _petGuardianService.DeletePetGuardian(id);
 				return NoContent();
 			}
-			catch (NotFoundException ex)
+			catch (NotFoundException)
 			{
 				return NotFound();
 			}

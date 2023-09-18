@@ -1,16 +1,24 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using PetGuardianApi.Data.Configuration;
 using PetGuardianApi.Database.Repositories;
 using PetGuardianApi.Domain.Interfaces.Repositories;
 using PetGuardianApi.Domain.Interfaces.Services;
 using PetGuardianApi.Domain.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+	var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+	var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+	options.IncludeXmlComments(xmlPath);
+	options.SwaggerDoc("v1", new OpenApiInfo { Title = "PetGuardian.Api", Version = "v1" });
+});
 
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
 var dbName = Environment.GetEnvironmentVariable("DB_NAME");
