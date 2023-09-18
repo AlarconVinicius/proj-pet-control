@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PetGuardianApi.Data.Configuration;
+using PetGuardianApi.Database.Repositories;
+using PetGuardianApi.Domain.Interfaces.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,9 @@ builder.Services.AddDbContext<BaseDbContext>(
 opt =>
 		opt.UseSqlServer(connectionString)
 );
+
+builder.Services.AddScoped<IPetGuardianRepository, PetGuardianRepository>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
