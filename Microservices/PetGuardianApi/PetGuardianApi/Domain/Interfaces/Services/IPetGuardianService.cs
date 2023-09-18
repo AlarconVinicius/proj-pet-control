@@ -1,16 +1,16 @@
-﻿using PetGuardianApi.Domain.Entities;
+﻿using PetGuardianApi.Domain.Dtos;
 
 namespace PetGuardianApi.Domain.Interfaces.Services;
 
 public interface IPetGuardianService
 {
-	Task AddPetGuardian(PetGuardian objeto);
+	Task<PetGuardianResponse> AddPetGuardian(PetGuardianRequest objeto);
 
-	Task UpdatePetGuardian(Guid id, PetGuardian objeto);
+	Task UpdatePetGuardian(Guid id, PetGuardianRequest objeto);
 
 	Task DeletePetGuardian(Guid id);
 
-	Task<List<PetGuardian>> GetPetGuardians();
+	Task<IEnumerable<PetGuardianResponse>> GetPetGuardians();
 
-	Task<PetGuardian> GetPetGuardianById(Guid id);
+	Task<PetGuardianResponse> GetPetGuardianById(Guid id);
 }

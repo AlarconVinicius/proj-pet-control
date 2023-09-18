@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PetGuardianApi.Data.Configuration;
-using PetGuardianApi.Domain.Entities;
+using PetGuardianApi.Domain.Dtos;
+using PetGuardianApi.Domain.Interfaces.Services;
+using PetGuardianApi.Exceptions;
 
 namespace PetGuardianApi.Controllers
 {
@@ -9,104 +9,99 @@ namespace PetGuardianApi.Controllers
     [ApiController]
     public class PetGuardiansController : ControllerBase
     {
-        private readonly BaseDbContext _context;
+		private readonly IPetGuardianService _petGuardianService;
 
-        public PetGuardiansController(BaseDbContext context)
-        {
-            _context = context;
-        }
+		public PetGuardiansController(IPetGuardianService petGuardianService)
+		{
+			_petGuardianService = petGuardianService;
+		}
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PetGuardian>>> GetPetGuardians()
+		[HttpGet]
+        public async Task<IActionResult> Get()
         {
-          if (_context.PetGuardian == null)
-          {
-              return NotFound();
-          }
-            return await _context.PetGuardian.ToListAsync();
-        }
+			try
+			{
+				IEnumerable<PetGuardianResponse> petGuardianDb = await _petGuardianService.GetPetGuardians();
+				if (!petGuardianDb.Any())
+				{
+					return NotFound();
+				}
+				return Ok(petGuardianDb);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+
+		}
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PetGuardian>> GetPetGuardian(Guid id)
+        public async Task<IActionResult> Get(Guid id)
         {
-          if (_context.PetGuardian == null)
-          {
-              return NotFound();
-          }
-            var petGuardian = await _context.PetGuardian.FindAsync(id);
-
-            if (petGuardian == null)
-            {
-                return NotFound();
-            }
-
-            return petGuardian;
+			try
+			{
+				var petGuardianResponse = await _petGuardianService.GetPetGuardianById(id);
+				return Ok(petGuardianResponse);
+			}
+			catch (NotFoundException ex)
+			{
+				return NotFound();
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPetGuardian(Guid id, PetGuardian petGuardian)
+        public async Task<IActionResult> Put(Guid id, PetGuardianRequest petGuardian)
         {
-            if (id != petGuardian.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(petGuardian).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PetGuardianExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+			try
+			{
+				await _petGuardianService.UpdatePetGuardian(id, petGuardian);
+				return NoContent();
+			}
+			catch (NotFoundException ex)
+			{
+				return NotFound();
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
         }
 
         [HttpPost]
-        public async Task<ActionResult<PetGuardian>> PostPetGuardian(PetGuardian petGuardian)
+        public async Task<IActionResult> Post(PetGuardianRequest petGuardian)
         {
-          if (_context.PetGuardian == null)
-          {
-              return Problem("Entity set 'BaseDbContext.PetGuardian'  is null.");
-          }
-            _context.PetGuardian.Add(petGuardian);
-            await _context.SaveChangesAsync();
+			try
+			{
+				PetGuardianResponse petGuardianDb = await _petGuardianService.AddPetGuardian(petGuardian);
 
-            return CreatedAtAction("GetPetGuardian", new { id = petGuardian.Id }, petGuardian);
-        }
+				return CreatedAtAction("Get", new { id = petGuardianDb.id }, petGuardianDb);
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
+		}
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePetGuardian(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            if (_context.PetGuardian == null)
-            {
-                return NotFound();
-            }
-            var petGuardian = await _context.PetGuardian.FindAsync(id);
-            if (petGuardian == null)
-            {
-                return NotFound();
-            }
-
-            _context.PetGuardian.Remove(petGuardian);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool PetGuardianExists(Guid id)
-        {
-            return (_context.PetGuardian?.Any(e => e.Id == id)).GetValueOrDefault();
+			try
+			{
+				await _petGuardianService.DeletePetGuardian(id);
+				return NoContent();
+			}
+			catch (NotFoundException ex)
+			{
+				return NotFound();
+			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, ex.Message);
+			}
         }
     }
 }
