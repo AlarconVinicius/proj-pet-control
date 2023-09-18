@@ -7,27 +7,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthApi", "AuthApi", "{08FE40DA-C02C-417F-B272-C9525D498FF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthApi", "Microservices\AuthApi\AuthApi\AuthApi.csproj", "{BE16E5DA-9150-4FA6-8B96-9AF74AD60C35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthApi", "Microservices\AuthApi\AuthApi\AuthApi.csproj", "{BE16E5DA-9150-4FA6-8B96-9AF74AD60C35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PetGuardianApi", "PetGuardianApi", "{39B27FA4-0023-419E-BBCE-00A33AD7B024}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetGuardianApi", "Microservices\PetGuardianApi\PetGuardianApi\PetGuardianApi.csproj", "{3EE38FAE-A1FF-41EE-A4EE-82F7211DBBEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetGuardianApi", "Microservices\PetGuardianApi\PetGuardianApi\PetGuardianApi.csproj", "{3EE38FAE-A1FF-41EE-A4EE-82F7211DBBEC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PetApi", "PetApi", "{6F675A38-C9DD-4E2B-B64B-E151966265A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetApi", "Microservices\PetApi\PetApi\PetApi.csproj", "{F54A266C-2136-4065-8674-4E2E0AE2A827}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetApi", "Microservices\PetApi\PetApi\PetApi.csproj", "{F54A266C-2136-4065-8674-4E2E0AE2A827}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PetDocumentsApi", "PetDocumentsApi", "{2DEC74A4-911B-4DB8-976F-47E2F5FE322E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetDocumentApi", "Microservices\PetDocumentsApi\PetDocumentApi\PetDocumentApi.csproj", "{C0242101-A90B-4349-8CBC-B1CE853E5FDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetDocumentApi", "Microservices\PetDocumentsApi\PetDocumentApi\PetDocumentApi.csproj", "{C0242101-A90B-4349-8CBC-B1CE853E5FDD}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F9F6AA37-A797-4879-9A57-17B45190CCEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BE16E5DA-9150-4FA6-8B96-9AF74AD60C35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -46,6 +45,13 @@ Global
 		{C0242101-A90B-4349-8CBC-B1CE853E5FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0242101-A90B-4349-8CBC-B1CE853E5FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0242101-A90B-4349-8CBC-B1CE853E5FDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F6AA37-A797-4879-9A57-17B45190CCEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F6AA37-A797-4879-9A57-17B45190CCEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F6AA37-A797-4879-9A57-17B45190CCEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F6AA37-A797-4879-9A57-17B45190CCEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{08FE40DA-C02C-417F-B272-C9525D498FF4} = {6C5EB530-4FB3-4BB1-9619-3205D7A8478E}
@@ -56,5 +62,8 @@ Global
 		{F54A266C-2136-4065-8674-4E2E0AE2A827} = {6F675A38-C9DD-4E2B-B64B-E151966265A5}
 		{2DEC74A4-911B-4DB8-976F-47E2F5FE322E} = {6C5EB530-4FB3-4BB1-9619-3205D7A8478E}
 		{C0242101-A90B-4349-8CBC-B1CE853E5FDD} = {2DEC74A4-911B-4DB8-976F-47E2F5FE322E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B032BD4B-D859-4698-9F46-D70D6C4D6AE4}
 	EndGlobalSection
 EndGlobal

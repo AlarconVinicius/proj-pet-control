@@ -1,0 +1,30 @@
+version: '3.4'
+
+networks:
+    backend:
+
+services:
+    petguardiandb:
+        container_name: pet-guardian-db
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=Senha@123 
+        networks:
+            - backend
+        ports:
+            - 8001:1433
+    petguardianapi:
+        container_name: pet-guardian-api
+        image: ${DOCKER_REGISTRY-}petguardianapi
+        build:
+            context: .
+            dockerfile: Microservices/PetGuardianApi/PetGuardianApi/Dockerfile
+        networks:
+            - backend
+        ports:
+            - 8002:80
+        environment:
+            - DB_HOST=petguardiandb
+            - DB_NAME=db_pet_guardian 
+            - DB_SA_PASSWORD=Senha@123
