@@ -6,7 +6,7 @@
     <ProjectGuid>f9f6aa37-a797-4879-9a57-17b45190ccec</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>petguardianapi</DockerServiceName>
+    <DockerServiceName>petapi</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
