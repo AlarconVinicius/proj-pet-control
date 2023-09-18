@@ -26,7 +26,6 @@ public class PetGuardianService : IPetGuardianService
 
 		petGuardianDb.FirstName = objeto.FirstName;
 		petGuardianDb.LastName = objeto.LastName;
-		petGuardianDb.UpdatedAt = DateTime.Now;
 
 		await _repository.UpdatePetGuardian(petGuardianDb);
 	}

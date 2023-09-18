@@ -22,6 +22,7 @@ public class PetGuardianRepository : IPetGuardianRepository
 
 	public async Task UpdatePetGuardian(PetGuardian objeto)
 	{
+		objeto.UpdatedAt = DateTime.Now;
 		_context.PetGuardian
 				.Update(objeto);
 		await _context.SaveChangesAsync();
